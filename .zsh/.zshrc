@@ -1,8 +1,7 @@
 # Set up the prompt
-
-autoload -Uz promptinit
-promptinit
-prompt adam1
+autoload -U colors && colors
+PROMPT="%{$fg[yellow]%}%n%{$reset_color%} at %{$fg[magenta]%}%M%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}
+> "
 
 setopt histignorealldups sharehistory
 
