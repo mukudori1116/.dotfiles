@@ -1,6 +1,8 @@
-[[plugin]]
+[[plugins]]
 repo = 'Shougo/dein.vim'
-[[plugin]]
-repo = 'Shougo/deplete.nvim'
-[[plugin]]
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+[[plugins]]
 repo = 'Shougo/denite.nvim'
+[[plugins]]
+repo = 'cohama/lexima.vim'
