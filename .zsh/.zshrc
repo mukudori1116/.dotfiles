@@ -2,16 +2,15 @@
 autoload -U colors && colors
 PROMPT="%{$fg[yellow]%}%n%{$reset_color%} at %{$fg[magenta]%}%M%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}
 > "
+setopt prompt_subst                                                                                                                     
+TMOUT=60
+TRAPALRM() {zle reset-prompt}
+RPROMPT="%F{green} %D{%Y-%m-%d %H:%M} %f"
 
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
-
-# Keep 1000 lines use history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
 
 # Use modern completion system
 autoload -Uz compinit
@@ -48,9 +47,12 @@ source ~/.zplug/init.zsh
 
 # Plugins
 zplug "mollifier/anyframe"
-zplug "b4b4r07/enhancd", use:enhancd.sh
+zplug "b4b4r07/enhancd", use:init.sh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux 
+zplug "junegunn/fzf", use:shell/key-bindings.zsh 
+zplug "junegunn/fzf", use:shell/completion.zsh 
 zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 zplug 'zsh-users/zsh-syntax-highlighting'
 zplug 'zsh-users/zsh-autosuggestions'
@@ -72,6 +74,25 @@ zplug load
 
 # Alias
 alias c=clear
+alias ls="ls --color"
+alias ll="ls -l --color"
+alias la="ls -a --color"
+alias lll="ls -la --color"
+alias grep="grep --color=auto"
+alias ez="vim ~/.zsh/.zshrc"
+alias ta="tmux attach"
+alias reload="source $HOME/.zsh/.zshrc"
+alias clip='/mnt/c/Windows/System32/clip.exe'
 function instances {
   aws ec2 describe-instances | jq '.Reservations[].Instances[] | {InstanceName: (.Tags[] | select(.Key=="Name").Value), InstanceId, State: .State.Name, InstanceType, PublicDnsName}'
 }
+alias simplepush='(){curl https://api.simplepush.io/send/665F3J/$1}'
+if [ -e $HOME/.cargo/bin/lsd ]; then
+    alias ls='lsd'
+    alias ll='ls -la'
+    alias tree='ls --tree'
+fi
+
+# Environment variables
+export PATH=~/.cargo/bin:$PATH
+export PATH=~/bin:$PATH

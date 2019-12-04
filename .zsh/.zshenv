@@ -1,21 +1,3 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
-
-# the default umask is export in /etc/profile; for exportting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
-
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
-fi
-
 # export PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
@@ -25,6 +7,11 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# Keep 1000 lines use history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=$ZDOTDIR/.zsh_history
 
 # Environment variables
 export LANG=en_US.UTF-8
@@ -66,13 +53,3 @@ export  PYTHONPATH="/usr/local/lib/python3.7/site-packages:$PYTHONPATH"
 export  PYTHONPATH="/usr/local/lib/python3.7/site-packages/openbabel:$PYTHONPATH"
 
 # FragIt
-export  PYTHONPATH="/usr/local/lib/python3.7/site-packages/fragit:$PYTHONPATH"
-
-# MOE
-export  MOE="/usr/local/moe"
-
-# MOPAC
-export  LD_LIBRARY_PATH="/opt/mopac":$LD_LIBRARY_PATH
-alias mopac='/opt/mopac/MOPAC2016.exe'
-
-export PATH="$HOME/.cargo/bin:$PATH"

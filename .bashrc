@@ -51,8 +51,8 @@ export PATH=$PATH:/home/ryotaf/.local/bin
 export XDG_CACHE_HOME="/home/ryotaf/.cache"
 
 export PATH=(which aws_completer):$PATH
+cd $HOME
 
-#Run fish
-if [ -e /usr/bin/fish ]; then
-  exec /usr/bin/fish
+if [ -f /usr/bin/zsh ]; then
+    /usr/bin/zsh
 fi

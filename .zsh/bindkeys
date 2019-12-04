@@ -1,0 +1,2 @@
+# auto suggestions
+bindkey '^e' autosuggest-accept
