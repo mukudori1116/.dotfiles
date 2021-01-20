@@ -1,1 +1,1 @@
-fisher complete
+/Users/ryotaf/dotfiles/.config/fish/completions/fisher.fish

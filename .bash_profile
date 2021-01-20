@@ -75,4 +75,4 @@ export  MOE="/usr/local/moe"
 export  LD_LIBRARY_PATH="/opt/mopac":$LD_LIBRARY_PATH
 alias mopac='/opt/mopac/MOPAC2016.exe'
 
-export PATH="$HOME/.cargo/bin:$PATH"
+source "$HOME/.cargo/env"

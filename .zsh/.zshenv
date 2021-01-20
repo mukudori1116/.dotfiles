@@ -52,4 +52,4 @@ export  PATH="$HOME/gamess":$PATH
 export  PYTHONPATH="/usr/local/lib/python3.7/site-packages:$PYTHONPATH"
 export  PYTHONPATH="/usr/local/lib/python3.7/site-packages/openbabel:$PYTHONPATH"
 
-# FragIt
+source "$HOME/.cargo/env"

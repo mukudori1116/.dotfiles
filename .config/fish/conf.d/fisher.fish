@@ -1,1 +1,1 @@
-fisher copy-user-key-bindings
+/Users/ryotaf/dotfiles/.config/fish/conf.d/fisher.fish

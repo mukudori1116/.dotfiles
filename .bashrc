@@ -56,3 +56,4 @@ cd $HOME
 if [ -f /usr/bin/zsh ]; then
     /usr/bin/zsh
 fi
+source "$HOME/.cargo/env"

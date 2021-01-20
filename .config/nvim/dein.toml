@@ -1,8 +1,18 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
+
+[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
+repo = 'Shougo/context_filetype.vim'
+
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-[[plugins]]
-repo = 'cohama/lexima.vim'
+repo = 'dracula/vim'
+name = 'dracula'
+

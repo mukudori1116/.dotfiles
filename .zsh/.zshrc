@@ -1,27 +1,34 @@
 # Set up the prompt
 autoload -U colors && colors
-PROMPT="%{$fg[yellow]%}%n%{$reset_color%} at %{$fg[magenta]%}%M%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}
-> "
-setopt prompt_subst                                                                                                                     
-TMOUT=60
-TRAPALRM() {zle reset-prompt}
-RPROMPT="%F{green} %D{%Y-%m-%d %H:%M} %f"
+#PROMPT="%{$fg[yellow]%}%n%{$reset_color%} at %{$fg[magenta]%}%M%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}
+#> "
+#setopt prompt_subst                                                                                                                     
+#TMOUT=60
+#TRAPALRM() {zle reset-prompt}
+#RPROMPT="%F{green} %D{%Y-%m-%d %H:%M} %f"
 
 setopt histignorealldups sharehistory
+
+# starship (prompt)
+eval "$(starship init zsh)"
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
 # Use modern completion system
-autoload -Uz compinit
-compinit
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+    autoload -Uz compinit
+    compinit
+fi
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+# eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -74,25 +81,33 @@ zplug load
 
 # Alias
 alias c=clear
-alias ls="ls --color"
-alias ll="ls -l --color"
-alias la="ls -a --color"
-alias lll="ls -la --color"
+alias ls="ls"
+alias ll="ls -l"
+alias la="ls -a"
+alias lll="ls -la"
+alias ls="lsd"
 alias grep="grep --color=auto"
+alias rm="rm -i"
 alias ez="vim ~/.zsh/.zshrc"
 alias ta="tmux attach"
 alias reload="source $HOME/.zsh/.zshrc"
-alias clip='/mnt/c/Windows/System32/clip.exe'
 function instances {
   aws ec2 describe-instances | jq '.Reservations[].Instances[] | {InstanceName: (.Tags[] | select(.Key=="Name").Value), InstanceId, State: .State.Name, InstanceType, PublicDnsName}'
 }
 alias simplepush='(){curl https://api.simplepush.io/send/665F3J/$1}'
-if [ -e $HOME/.cargo/bin/lsd ]; then
-    alias ls='lsd'
-    alias ll='ls -la'
-    alias tree='ls --tree'
-fi
+alias vim="nvim"
+alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
+alias gcc="gcc-10"
 
 # Environment variables
 export PATH=~/.cargo/bin:$PATH
 export PATH=~/bin:$PATH
+export XDG_CONFIG_HOME=$HOME/.config
+
+# Anyenv
+eval "$(anyenv init -)"
+
+test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh" || true
+
+# tmux
+export TERM=xterm-256color
