@@ -2,10 +2,16 @@ set tabstop=4
 set autoindent
 set expandtab
 set shiftwidth=4
+set belloff=all
 
 if !&compatible
   set nocompatible
 endif
+
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
 " dein settings {{{
 " dein自体の自動インストール

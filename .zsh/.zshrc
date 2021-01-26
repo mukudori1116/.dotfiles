@@ -1,15 +1,10 @@
-# Set up the prompt
-autoload -U colors && colors
-#PROMPT="%{$fg[yellow]%}%n%{$reset_color%} at %{$fg[magenta]%}%M%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}
-#> "
-#setopt prompt_subst                                                                                                                     
-#TMOUT=60
-#TRAPALRM() {zle reset-prompt}
-#RPROMPT="%F{green} %D{%Y-%m-%d %H:%M} %f"
-
+# Historyの重複を防ぐ＆シェル間で共有する
 setopt histignorealldups sharehistory
 
 # starship (prompt)
+if ! (type "starship" > /dev/null 2>&1); then
+    curl -fsSL https://starship.rs/install.sh | bash
+fi
 eval "$(starship init zsh)"
 
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -23,6 +18,7 @@ if type brew &>/dev/null; then
     compinit
 fi
 
+# Completion
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -37,7 +33,6 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
@@ -76,9 +71,7 @@ fi
 
 # Then, source plugins and add commands to $PATH
 zplug load
-
 #---------------end use zplug----------------
-#
 
 # Alias
 alias c=clear
@@ -86,7 +79,15 @@ alias ls="ls"
 alias ll="ls -l"
 alias la="ls -a"
 alias lll="ls -la"
-alias ls="lsd"
+
+if (type "lsd" > /dev/null 2>&1) then;
+    alias ls="lsd"
+else
+    if (type "cargo" > /dev/null 2>&1) then;
+        cargo install lsd
+        alias ls="lsd"
+    fi
+fi
 alias grep="grep --color=auto"
 alias rm="rm -i"
 alias ez="vim ~/.zsh/.zshrc"
@@ -96,19 +97,56 @@ function instances {
   aws ec2 describe-instances | jq '.Reservations[].Instances[] | {InstanceName: (.Tags[] | select(.Key=="Name").Value), InstanceId, State: .State.Name, InstanceType, PublicDnsName}'
 }
 alias simplepush='(){curl https://api.simplepush.io/send/665F3J/$1}'
-alias vim="nvim"
-alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
-alias gcc="gcc-10"
+if (type "nvim" > /dev/null 2>&1) then;
+	alias vim="nvim"
+fi
+if (type "gcc-10" >/dev/null 2>&1) then;
+	alias gcc="gcc-10"
+fi
+
 
 # Environment variables
-export PATH=~/.cargo/bin:$PATH
 export PATH=/usr/local/v850-elf-gcc:$PATH
+
+# XDG Base Directory
 export XDG_CONFIG_HOME=$HOME/.config
 
+# Rust and Cargo
+# install
+if ! (type "cargo" > /dev/null 2>&1); then
+    echo "Install Rust?(y/N): "
+    if read -q; then
+        curl https://sh.rustup.rs -sSf | sh
+    fi
+fi
+export PATH=~/.cargo/bin:$PATH
+
 # Anyenv
+# anyenv install
+if ! (type "anyenv" > /dev/null 2>&1); then
+    echo "Install anyenv?(y/N): "
+    if read -q; then
+        git clone https://github.com/anyenv/anyenv ~/.anyenv
+    fi
+fi
+export PATH=$HOME/.anyenv/bin:$PATH
 eval "$(anyenv init -)"
 
-test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh" || true
 
 # tmux
 export TERM=xterm-256color
+
+# MacOS
+if [ "$(uname)"=='Darwin' ]; then
+    alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
+    test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh" || true
+    if ! (type "trash" > /dev/null 2>&1); then
+        echo "Install trash?(y/N): "
+        if read -q; then
+            brew install trash
+        fi
+    fi
+    if type "trash" > /dev/null 2>&1; then
+        alias rm="trash"
+    fi
+fi
