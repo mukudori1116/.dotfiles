@@ -1,4 +1,4 @@
-add_newline = false
+add_newline = true
 
 [aws]
 symbol = " "
@@ -15,8 +15,7 @@ symbol = " "
 [directory]
 read_only = " "
 truncation_length = 100
-truncate_to_repo = fales
-truncation_symbol = "…/"
+truncate_to_repo = false
 
 [docker]
 symbol = " "
@@ -38,6 +37,10 @@ symbol = " "
 
 [hg_branch]
 symbol = " "
+
+[hostname]
+disabled = false
+ssh_only = false
 
 [java]
 symbol = " "
@@ -78,3 +81,9 @@ symbol = " "
 
 [swift]
 symbol = "ﯣ "
+
+[username]
+disabled = false
+show_always = true
+format = "[$user]($style) at "
+style_user = "bold purple"

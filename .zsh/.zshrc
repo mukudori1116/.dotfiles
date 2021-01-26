@@ -55,6 +55,7 @@ source ~/.zplug/init.zsh
 # Plugins
 zplug "mollifier/anyframe"
 zplug "b4b4r07/enhancd", use:init.sh
+export ENHANCD_DISABLE_DOT=1
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux 
@@ -101,7 +102,7 @@ alias gcc="gcc-10"
 
 # Environment variables
 export PATH=~/.cargo/bin:$PATH
-export PATH=~/bin:$PATH
+export PATH=/usr/local/v850-elf-gcc:$PATH
 export XDG_CONFIG_HOME=$HOME/.config
 
 # Anyenv
