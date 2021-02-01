@@ -48,17 +48,17 @@ fi
 source ~/.zplug/init.zsh
 
 # Plugins
-zplug "mollifier/anyframe"
 zplug "b4b4r07/enhancd", use:init.sh
 export ENHANCD_DISABLE_DOT=1
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux 
-zplug "junegunn/fzf", use:shell/key-bindings.zsh 
-zplug "junegunn/fzf", use:shell/completion.zsh 
-zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+zplug "junegunn/fzf", use:shell/key-bindings.zsh
+zplug "junegunn/fzf", use:shell/completion.zsh
 zplug 'zsh-users/zsh-syntax-highlighting'
 zplug 'zsh-users/zsh-autosuggestions'
+#zplug "mollifier/anyframe"
+#zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
 
 # Install plugins if there are plugins that have not been installed
@@ -108,6 +108,12 @@ fi
 # Environment variables
 export PATH=/usr/local/v850-elf-gcc:$PATH
 
+# fzf
+if (type "bat" &> /dev/null) && (type "rg" &> /dev/null); then
+    export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+    export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
+fi
+
 # XDG Base Directory
 export XDG_CONFIG_HOME=$HOME/.config
 
@@ -130,8 +136,12 @@ if ! (type "anyenv" > /dev/null 2>&1); then
     fi
 fi
 export PATH=$HOME/.anyenv/bin:$PATH
-eval "$(anyenv init -)"
+eval "$(anyenv init - --no-rehash)"
 
+# Haskell
+if [ -e ~/.ghcup ]; then
+    source ~/.ghcup/env
+fi
 
 # tmux
 export TERM=xterm-256color
