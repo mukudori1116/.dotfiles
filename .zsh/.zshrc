@@ -12,26 +12,21 @@ if [ -d $ZSHHOME -a -r $ZSHHOME -a \
 fi
 #------------------------------------------------------
 
+# --環境に依存する設定---------------------------------
 # Alias
-if (type "gcc-10" >/dev/null 2>&1) then;
-	alias gcc="gcc-10"
+alias gcc="gcc-10"
+alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
+if type "trash" > /dev/null 2>&1; then
+    alias rm="trash"
 fi
 
 # Path
 export PATH=/usr/local/v850-elf-gcc:$PATH
 
-# MacOS
-if [ "$(uname)"=='Darwin' ]; then
-    alias brew="PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin brew"
-    test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh" || true
-    if ! (type "trash" > /dev/null 2>&1); then
-        echo "Install trash?(y/N): "
-        if read -q; then
-            brew install trash
-        fi
-    fi
-    if type "trash" > /dev/null 2>&1; then
-        alias rm="trash"
-    fi
-fi
+# iterm2
+test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh" || true
 
+# Haskell
+if [ -e ~/.ghcup ]; then
+    source ~/.ghcup/env
+fi

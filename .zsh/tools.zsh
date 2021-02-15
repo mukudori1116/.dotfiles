@@ -11,25 +11,13 @@ if (type "bat" &> /dev/null) && (type "rg" &> /dev/null); then
     export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
 fi
 
-# Cargo
-if ! (type "cargo" > /dev/null 2>&1); then
-    echo "Install Rust?(y/N): "
-    if read -q; then
-        curl https://sh.rustup.rs -sSf | sh
-    fi
+# starship (prompt)
+if ! (type "starship" > /dev/null 2>&1); then
+    curl -fsSL https://starship.rs/install.sh | bash
 fi
+eval "$(starship init zsh)"
+
+# cargo
 export PATH=~/.cargo/bin:$PATH
-
-# Haskell
-if [ -e ~/.ghcup ]; then
-    source ~/.ghcup/env
-fi
-
-#asdf
-. /usr/local/opt/asdf/asdf.sh
-
-# XDG Base Directory
-export XDG_CONFIG_HOME=$HOME/.config
-
 
 
