@@ -3,12 +3,14 @@ ZSHHOME="${HOME}/.zsh"
 
 if [ -d $ZSHHOME -a -r $ZSHHOME -a \
      -x $ZSHHOME ]; then
-# global.zsh 環境に依存しない設定
+    # global.zsh 環境に依存しない設定
     source "$ZSHHOME/global.zsh"
-# alias.zsh  環境に依存しないAlias
+    # alias.zsh  環境に依存しないAlias
     source "$ZSHHOME/alias.zsh"
-# tools.zsh  ツールの設定
+    # tools.zsh  ツールの設定
     source "$ZSHHOME/tools.zsh"
+    # plugins.zsh プラグイン
+    source "$ZSHHOME/plugins.zsh"
 fi
 #------------------------------------------------------
 
