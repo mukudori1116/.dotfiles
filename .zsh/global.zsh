@@ -10,7 +10,7 @@ bindkey -e
 # Use modern completion system
 autoload -Uz compinit
 compinit
-if type brew &>/dev/null; then
+if type brew 1&>2 /dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 fi
 
