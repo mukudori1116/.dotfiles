@@ -13,13 +13,14 @@ export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 export TERM=xterm-256color
 
 # fzf
+export FZF_DEFAULT_OPT='--muluti'
 if (type "fd" &> /dev/null) then;
     export FZF_DEFAULT_COMMAND='fd --type file'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 if (type "bat" &> /dev/null) && (type "rg" &> /dev/null); then
-    #export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!Library/*" --glob "!OneDrive/*" --glob "!Google Drive/*"'
-    #export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
+    export FZF_CTRL_T_COMMAND='rg --files --hidden --glob "!.git/*" --glob "!Library/*" --glob "!OneDrive/*" --glob "!Google Drive/*"'
+    export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
 fi
 
 # starship (prompt)
