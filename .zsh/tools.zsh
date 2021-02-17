@@ -18,8 +18,8 @@ if (type "fd" &> /dev/null) then;
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 if (type "bat" &> /dev/null) && (type "rg" &> /dev/null); then
-    export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-    export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
+    #export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!Library/*" --glob "!OneDrive/*" --glob "!Google Drive/*"'
+    #export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=header,grid --line-range :100 {}"'
 fi
 
 # starship (prompt)
