@@ -1,1 +1,0 @@
-/Users/ryotaf/dotfiles/.config/fish/functions/__fzf_get_dir.fish

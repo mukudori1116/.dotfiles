@@ -1,1 +1,0 @@
-/Users/ryotaf/dotfiles/.config/fisher/github.com/jethrokuan/z/README.md

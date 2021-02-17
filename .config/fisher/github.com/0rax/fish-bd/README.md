@@ -1,1 +1,0 @@
-/Users/ryotaf/dotfiles/.config/fisher/github.com/0rax/fish-bd/README.md

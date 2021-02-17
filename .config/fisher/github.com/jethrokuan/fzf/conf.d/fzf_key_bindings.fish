@@ -1,1 +1,0 @@
-/Users/ryotaf/dotfiles/.config/fisher/github.com/jethrokuan/fzf/conf.d/fzf_key_bindings.fish

@@ -1,1 +1,0 @@
-/home/ryotaf/.fzf/shell/key-bindings.fish

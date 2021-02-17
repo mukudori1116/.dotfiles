@@ -1,1 +1,0 @@
-/Users/ryotaf/dotfiles/.config/fish/functions/__fzf_complete_preview.fish

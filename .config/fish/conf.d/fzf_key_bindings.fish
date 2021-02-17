@@ -1,1 +1,0 @@
-/Users/ryotaf/dotfiles/.config/fish/conf.d/fzf_key_bindings.fish
