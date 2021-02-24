@@ -32,3 +32,6 @@ test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2
 if [ -e ~/.ghcup ]; then
     source ~/.ghcup/env
 fi
+
+# asdf
+. /usr/local/opt/asdf/asdf.sh
